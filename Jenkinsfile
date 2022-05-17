@@ -15,7 +15,7 @@ pipeline {
     stage('Building image') {
       steps{
         script {
-            sh 'docker build -t node:apline .'
+            sh 'docker build github.com/RaahulSankaran/c7project.git'
         }
       }
     }
