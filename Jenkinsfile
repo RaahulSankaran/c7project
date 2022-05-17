@@ -23,7 +23,7 @@ pipeline {
     // Uploading Docker images into AWS ECR
     stage('Pushing to ECR') {
      steps{  
-        withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'aws-credentials', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY']])
+        withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'aws crd', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY']])
         {
          script {
                 sh 'docker login -u AWS -p $(aws ecr get-login-password --region us-east-1) 679136127575.dkr.ecr.us-east-1.amazonaws.com/nodeapp'
