@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('Cloning Git') {
             steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '', url: 'https://github.com/RaahulSankaran/c7project.git']]])     
+                checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '', url: '']]])     
             }
         }
   
@@ -15,12 +15,12 @@ pipeline {
     stage('Building image') {
       steps{
         script {
-            sh 'docker build github.com/RaahulSankaran/c7project.git'
+          dockerImage = docker.build registry
         }
       }
     }
    
-       // Uploading Docker images into AWS ECR
+    // Uploading Docker images into AWS ECR
     stage('Pushing to ECR') {
      steps{  
         withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'aws-credentials', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY']])
@@ -34,14 +34,14 @@ pipeline {
       }
    
          
-      
+     
     stage('Docker Run') {
      steps{
          script {
-                sh 'sudo su'
                 sh 'ssh -i raahul-key.pem ubuntu@10.0.2.9'
                 sh 'docker run -d -p 8080:8080 --rm --name node 679136127575.dkr.ecr.us-east-1.amazonaws.com/nodeapp'
             }
       }
     }
-  }
+    }
+}
