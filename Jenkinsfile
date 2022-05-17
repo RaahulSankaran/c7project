@@ -2,8 +2,6 @@ pipeline {
     agent any
     environment {
         registry = "679136127575.dkr.ecr.us-east-1.amazonaws.com/nodeapp"
-        withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'aws-key', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY']]) {
-        AWS("--region=eu-west-1 s3 ls")
     }
    
     stages {
