@@ -2,6 +2,11 @@ pipeline {
     agent any
     environment {
         registry = "679136127575.dkr.ecr.us-east-1.amazonaws.com/nodeapp"
+        AWS_ACCOUNT_ID="679136127575"
+        AWS_DEFAULT_REGION="us-east-1" 
+        IMAGE_REPO_NAME="nodeapp"
+        IMAGE_TAG="latest"
+        REPOSITORY_URI = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}"
     }
    
     stages {
@@ -26,7 +31,7 @@ pipeline {
         script {
                 sh 'sudo docker login -u AWS -p $(aws ecr get-login-password --region us-east-1) 679136127575.dkr.ecr.us-east-1.amazonaws.com/nodeapp'
                 sh 'docker tag node:alpine 679136127575.dkr.ecr.us-east-1.amazonaws.com/nodeapp'
-                sh 'sudo docker push 679136127575.dkr.ecr.us-east-1.amazonaws.com/nodeapp'
+                sh 'docker push 679136127575.dkr.ecr.us-east-1.amazonaws.com/nodeapp'
          }
         }
       }
