@@ -24,7 +24,7 @@ pipeline {
     stage('Pushing to ECR') {
      steps{  
         script {
-                sh 'sudo docker login -u AWS -p $(aws ecr get-login-password --region us-east-1) 679136127575.dkr.ecr.us-east-1.amazonaws.com/nodeapp'
+                sh 'sudo docker exec login -u AWS -p $(aws ecr get-login-password --region us-east-1) 679136127575.dkr.ecr.us-east-1.amazonaws.com/nodeapp'
                 sh 'docker tag node:alpine 679136127575.dkr.ecr.us-east-1.amazonaws.com/nodeapp'
                 sh 'sudo docker push 679136127575.dkr.ecr.us-east-1.amazonaws.com/nodeapp'
          }
