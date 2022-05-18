@@ -28,7 +28,7 @@ pipeline {
    
          script {
                 sh 'docker login -u AWS -p $(aws ecr get-login-password --region us-east-1) 679136127575.dkr.ecr.us-east-1.amazonaws.com/nodeapp '   
-                sh 'sh 'docker push 679136127575.dkr.ecr.us-east-1.amazonaws.com/nodeapp'
+                sh 'docker push 679136127575.dkr.ecr.us-east-1.amazonaws.com/nodeapp'
              }
             }
           }
