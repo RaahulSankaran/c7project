@@ -38,8 +38,7 @@ pipeline {
     stage('Docker Run') {
      steps{
          script {          
-                sh 'docker run -d -p 8003:8080 679136127575.dkr.ecr.us-east-1.amazonaws.com/nodeapp'
-                sh 'docker -H ssh://ubuntu@10.2.0.9 run -d -p 8003:8080 679136127575.dkr.ecr.us-east-1.amazonaws.com/nodeapp'
+                sh 'ssh -i raahul-key.pem ubuntu@10.0.2.9'
                  } 
             }
       }
