@@ -7,12 +7,7 @@ pipeline {
    
     stages {
         stage('Cloning Git') {
-            steps {
-                  sshagent(credentials : ['aws_ec2']){
-
-                sh "ssh -o StrictHostKeyChecking=no -i ~/raahul-key.pem ubuntu@10.0.2.9 'whoami'"
-                sh "ssh -o StrictHostKeyChecking=no -i ~/raahul-key.pem ubuntu@10.0.2.9 'ls'"
-             
+            steps {           
                 checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '', url: 'https://github.com/RaahulSankaran/c7project.git']]])     
             }
            }
@@ -44,9 +39,10 @@ pipeline {
     stage('Docker Run') {
      steps{
          script {
-                sh 'docker run  --restart=always -d -p 10.0.2.9:8080:8080 679136127575.dkr.ecr.us-east-1.amazonaws.com/nodeapp'
+                sh 'docker run -d -p 8003:8080 679136127575.dkr.ecr.us-east-1.amazonaws.com/nodeapp'
             }
       }
     }
+    
     }
 }
