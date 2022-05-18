@@ -7,10 +7,9 @@ pipeline {
    
     stages {
         stage('Cloning Git') {
-            steps {           
+            steps {
                 checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '', url: 'https://github.com/RaahulSankaran/c7project.git']]])     
             }
-           }
         }
   
     // Building Docker images
@@ -38,10 +37,11 @@ pipeline {
         
     stage('Docker Run') {
      steps{
-         script {
-                sh 'docker run -d -p 8003:8080 679136127575.dkr.ecr.us-east-1.amazonaws.com/nodeapp'
+         script {          
+                sh 'docker run --name registry --restart=always -d -p 10.0.2.9:8080:8080 registry'
+                 } 
             }
       }
     }
-    
     }
+}
