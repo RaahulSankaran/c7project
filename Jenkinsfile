@@ -38,13 +38,7 @@ pipeline {
     stage('Docker Run') {
      steps{
          script {
-               sshagent(credentials : ['aws_ec2']){
-
-                sh 'ssh -o StrictHostKeyChecking=no -i raahul-key.pem ubuntu@10.0.2.9'
-
-           
                 sh 'docker run --name registry --restart=always -d -p 10.0.2.9:8080:8080 registry'
-                 } 
             }
       }
     }
