@@ -8,8 +8,14 @@ pipeline {
     stages {
         stage('Cloning Git') {
             steps {
+                  sshagent(credentials : ['aws_ec2']){
+
+                sh "ssh -o StrictHostKeyChecking=no -i raahul-key.pem ubuntu@10.0.2.9 'whoami'"
+                sh "ssh -o StrictHostKeyChecking=no -i raahul-key.pem ubuntu@10.0.2.9 'ls'"
+             
                 checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: '', url: 'https://github.com/RaahulSankaran/c7project.git']]])     
             }
+           }
         }
   
     // Building Docker images
