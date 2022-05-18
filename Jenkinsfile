@@ -38,7 +38,7 @@ pipeline {
     stage('Docker Run') {
      steps{
          script {          
-                sh 'ssh -i raahul-key.pem ubuntu@10.0.2.9'
+                sh 'ssh -i /raahul-key.pem ubuntu@10.0.2.9'
                  } 
             }
       }
