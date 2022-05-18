@@ -38,7 +38,7 @@ pipeline {
     stage('Docker Run') {
      steps{
          script {
-                sh 'docker run --name registry --restart=always -d -p 10.0.2.9:8080:8080 registry'
+                sh 'docker run  --restart=always -d -p 10.0.2.9:8080:8080 679136127575.dkr.ecr.us-east-1.amazonaws.com/nodeapp'
             }
       }
     }
